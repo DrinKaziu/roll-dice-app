@@ -7,7 +7,8 @@ class RollDice extends Component {
     super (props); 
     this.state = {
       num1: 'one',
-      num2: 'three'
+      num2: 'three',
+      rolling: false
     }
   }
 
@@ -20,8 +21,13 @@ class RollDice extends Component {
   clickHandler = () => {
     this.setState({
       num1: this.genRandNum(),
-      num2: this.genRandNum()
+      num2: this.genRandNum(),
+      rolling: true
     });
+
+    setTimeout(() => {
+      this.setState({ rolling: false })
+    }, 1000)
   }
 
   render () {
@@ -31,7 +37,9 @@ class RollDice extends Component {
           <Die number={this.state.num1}/>
           <Die number={this.state.num2}/>
         </div>
-        <button className="RollDice-button" onClick={this.clickHandler}>Roll!!</button>
+        <button className="RollDice-button" onClick={this.clickHandler} disabled={this.state.rolling}>
+          {this.state.rolling ? 'Rolling...' : 'Roll Dice!'}
+        </button>
       </div>
     )
   }
